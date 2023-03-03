@@ -1,6 +1,9 @@
-import pygame
+from displayer import Displayer
+from engine import Engine
 
 
 if __name__ == "__main__":
-    print(1)
+    engine = Engine()
+    displayer = Displayer(engine)
+    displayer.run()
 
