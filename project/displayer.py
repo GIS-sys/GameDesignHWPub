@@ -7,31 +7,21 @@ class Camera:
         self.screen_width = screen_width
         self.screen_height = screen_height
 
-    @staticmethod
-    def pointRelativePosition(cls, point1, point2):
-        res = []
-        if point1[0] < point2[0]:
-            res += ["xl", "xle"]
-        elif point1[0] == point2[0]:
-            res += ["xle", "xe", "xge"]
-        elif point1[0] == point2[0]:
-            res += ["xg", "xge"]
-        if point1[1] < point2[1]:
-            res += ["yl", "yle"]
-        elif point1[1] == point2[1]:
-            res += ["yle", "ye", "yge"]
-        elif point1[1] == point2[1]:
-            res += ["yg", "yge"]
-        return res
-
     def isVisible(self, obj):
-        if Camera.pointRelativePosition(obj.mostLUPoint(), (0, 0), ["xle", "yle"])
+        x0, y0, x1, y1 = obj.boundRect()
+        if x1 < 0 or x0 > self.screen_width:
+            return False
+        if y1 < 0 or y0 > self.screen_height:
+            return False
+        return True
 
     def sieve(self, scene):
         i = 0
         while i < len(scene):
             if not self.isVisible(scene[i]):
                 scene.pop(i)
+            else:
+                i += 1
         return scene
 
 
@@ -42,7 +32,7 @@ class Displayer:
         pygame.display.set_caption(name)
         self.clock = pygame.time.Clock()
         self.engine = Engine(width, height)
-        self.camera = Camera()
+        self.camera = Camera(width, height)
         self.running = False
 
     def run(self, fps=60):
@@ -55,7 +45,6 @@ class Displayer:
             self.engine.update()
             self._scene = self.engine.getObjectsForDisplay()
             self._scene = self.camera.sieve(self._scene)
-            print(len(self._scene)
             for obj in self._scene:
                 obj.draw(self.window)
             pygame.display.update()

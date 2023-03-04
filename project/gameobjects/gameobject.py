@@ -12,3 +12,7 @@ class GameObject(ABC):
     def draw(self, window):
         pass
 
+    @abstractmethod
+    def boundRect(self):
+        pass
+

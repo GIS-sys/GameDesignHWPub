@@ -13,6 +13,9 @@ class Block(GameObject, ABC):
     def draw(self, window):
         pass
 
+    def boundRect(self):
+        return [self.x, self.y, self.x + self.width, self.y + self.height]
+
 
 class ColorBlock(Block):
     def __init__(self, alpha=255, color=(0, 0, 0), *args, **kwargs):
