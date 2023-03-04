@@ -1,12 +1,6 @@
 import pygame
 
 
-white = (255, 255, 255)
-black = (0, 0, 0)
-red = (255, 0, 0)
-green = (0, 255, 0)
-blue = (0, 0, 255)
-
 class Displayer:
     def __init__(self, engine, name="МОЯ ИГРА", width=800, height=600):
         pygame.init()
@@ -22,7 +16,7 @@ class Displayer:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
-            self.window.fill(white)
+            self.window.fill((255, 255, 255))
             self.engine.update()
             self._scene = self.engine.getObjectsForDisplay()
             for obj in self._scene:

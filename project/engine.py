@@ -1,39 +1,23 @@
 import pygame
 import random
-
-
-class Rectangle:
-    def __init__(self, x, y, speed, color):
-        self.x = x
-        self.y = y
-        self.speed = speed
-        self.color = color
-        self.width = 50
-        self.height = 50
-
-    def move(self):
-        self.x += self.speed
-        self.y += self.speed
-
-    def draw(self, window):
-        pygame.draw.rect(window, self.color, (self.x, self.y, self.width, self.height))
-
+from gameobjects.blocks import ColorBlock, BrickTextureBlock, SteelTextureBlock
 
 
 class Engine:
     def __init__(self):
-        self.rectangles = []
-        for i in range(10):
-            x = random.randint(0, 100)
-            y = random.randint(0, 100)
-            speed = random.randint(1, 5)
-            color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-            self.rectangles.append(Rectangle(x, y, speed, color))
+        self.iter = 0
+        self.objects = [ColorBlock(color=(255,0,0), width=10, height=10, speed=(3, 3)),
+                        BrickTextureBlock(speed=(3, 3), width=30, height=30, z=2),
+                        BrickTextureBlock(speed=(3, 3), width=30, height=30, z=2, x=30),
+                        SteelTextureBlock(speed=(3, 3), width=20, height=20)]
 
     def update(self):
-        for rectangle in self.rectangles:
-            rectangle.move()
+        self.iter += 1
+        for obj in self.objects:
+            obj.x += obj.speed[0]
+            obj.y += obj.speed[1]
 
     def getObjectsForDisplay(self):
-        return self.rectangles
+        self.objects.sort(key=lambda obj: -obj.z)
+        return self.objects
 
