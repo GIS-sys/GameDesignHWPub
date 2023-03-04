@@ -3,7 +3,6 @@ from engine import Engine
 
 
 if __name__ == "__main__":
-    engine = Engine()
-    displayer = Displayer(engine)
+    displayer = Displayer()
     displayer.run()
 
