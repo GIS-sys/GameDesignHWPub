@@ -6,7 +6,7 @@ from gameobjects.blocks import ColorBlock, BrickTextureBlock, SteelTextureBlock
 class Engine:
     def __init__(self):
         self.iter = 0
-        self.objects = [ColorBlock(color=(255,0,0), width=10, height=10, speed=(3, 3)),
+        self.objects = [ColorBlock(color=(255,0,0), alpha=128, width=50, height=50, speed=(3, 3), z=-1),
                         BrickTextureBlock(speed=(3, 3), width=30, height=30, z=2),
                         BrickTextureBlock(speed=(3, 3), width=30, height=30, z=2, x=30),
                         SteelTextureBlock(speed=(3, 3), width=20, height=20)]

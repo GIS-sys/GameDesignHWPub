@@ -15,12 +15,16 @@ class Block(GameObject, ABC):
 
 
 class ColorBlock(Block):
-    def __init__(self, color=(0, 0, 0), *args, **kwargs):
+    def __init__(self, alpha=255, color=(0, 0, 0), *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.alpha = alpha
         self.color = color
+        self.surf = pygame.Surface((self.width, self.height))
+        self.surf.set_alpha(alpha)
+        self.surf.fill(color)
 
     def draw(self, window):
-        pygame.draw.rect(window, self.color, (self.x, self.y, self.width, self.height))
+        window.blit(self.surf, (self.x, self.y))
 
 
 class TextureBlock(Block):
