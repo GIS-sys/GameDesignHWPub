@@ -1,0 +1,4 @@
+background ""
+static block brick 0 0
+static block steel 50 40
+
